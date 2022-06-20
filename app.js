@@ -8,7 +8,7 @@ app.set('view engine', 'pug');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-const routes = require("./routes");
+const routes = require('./routes');
 app.use('/', routes);
 
 module.exports = app;

@@ -1,14 +1,17 @@
 {
   "name": "useid-eservice-example",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "build-sdk": "cd useid-eservice-sdk && npm run build",
+    "build-sdk-and-start": "npm run build-sdk && npm run start",
+    "dev": "nodemon --ignore \"./useid-eservice-sdk/dist/\" -e js,ts --exec \"npm run build-sdk-and-start\""
   },
   "dependencies": {
     "express": "~4.16.1",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "useid-eservice-sdk": "file:useid-eservice-sdk"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
