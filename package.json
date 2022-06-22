@@ -6,7 +6,8 @@
     "start": "node ./bin/www",
     "build-sdk": "cd useid-eservice-sdk && npm run build",
     "build-sdk-and-start": "npm run build-sdk && npm run start",
-    "dev": "nodemon --ignore \"./useid-eservice-sdk/dist/\" -e js,ts --exec \"npm run build-sdk-and-start\""
+    "dev": "nodemon --ignore \"./useid-eservice-sdk/dist/\" -e js,ts --exec \"npm run build-sdk-and-start\"",
+    "lint": "eslint ."
   },
   "dependencies": {
     "dotenv": "^16.0.1",
@@ -16,6 +17,8 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
     "nodemon": "^2.0.16"
   }
 }

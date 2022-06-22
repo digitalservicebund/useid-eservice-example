@@ -8,18 +8,21 @@ const useIdAPI = new UseIdAPI(process.env.USEID_API_KEY);
 const sessions = {};
 const uuid = require('uuid').v4;
 
-app.get('/', async (req, res, next) => {
+app.get('/', async (req, res) => {
   const sessionId = uuid();
   const refreshAddress = `${process.env.ROOT_URL}/success/${sessionId}`;
 
-  const useIdResponse = await useIdAPI.startSession(refreshAddress, [DataGroup.DateOfBirth, DataGroup.FamilyNames]);
+  const useIdResponse = await useIdAPI.startSession(
+    refreshAddress,
+    [DataGroup.DateOfBirth, DataGroup.FamilyNames],
+  );
   sessions[sessionId] = { useIdSessionId: useIdResponse.sessionId };
 
   res.header('Content-Security-Policy', `frame-src ${UseIdAPI.domain}; script-src ${UseIdAPI.domain}`);
 
   // We pass the refresh address here only as shortcut while developing. In production, this should
   // only be sent to the UseId API and not used anywhere else!
-  res.render('index', { widgetSrc: UseIdAPI.widgetSrc, tcTokenURL: useIdResponse.tcTokenURL, refreshAddress });
+  return res.render('index', { widgetSrc: UseIdAPI.widgetSrc, tcTokenURL: useIdResponse.tcTokenURL, refreshAddress });
 });
 
 app.get('/success/:sessionId', async (req, res) => {
@@ -30,13 +33,13 @@ app.get('/success/:sessionId', async (req, res) => {
   try {
     const identityData = await useIdAPI.getIdentityData(session.useIdSessionId);
     const data = [
-      { key: "Family Names", value: identityData.get(DataGroup.FamilyNames) },
-      { key: "Date of Birth", value: identityData.get(DataGroup.DateOfBirth) }
+      { key: 'Family Names', value: identityData.get(DataGroup.FamilyNames) },
+      { key: 'Date of Birth', value: identityData.get(DataGroup.DateOfBirth) },
     ];
     delete sessions[req.params.sessionId];
-    res.render('success', { data });
+    return res.render('success', { data });
   } catch (e) {
-    res.render('error', { errorMessage: e.message });
+    return res.render('error', { errorMessage: e.message });
   }
 });
 

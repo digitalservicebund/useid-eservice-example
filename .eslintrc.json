@@ -1,0 +1,11 @@
+{
+  "root": true,
+  "extends": [
+    "eslint:recommended",
+    "airbnb-base"
+  ],
+  "rules": {
+    "import/newline-after-import": "off"
+  },
+  "ignorePatterns": ["useid-eservice-sdk"]
+}
