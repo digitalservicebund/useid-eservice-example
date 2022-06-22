@@ -9,9 +9,11 @@
     "dev": "nodemon --ignore \"./useid-eservice-sdk/dist/\" -e js,ts --exec \"npm run build-sdk-and-start\""
   },
   "dependencies": {
+    "dotenv": "^16.0.1",
     "express": "~4.16.1",
     "pug": "^3.0.2",
-    "useid-eservice-sdk": "file:useid-eservice-sdk"
+    "useid-eservice-sdk": "file:useid-eservice-sdk",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"

@@ -1,4 +1,8 @@
 extends layout
 
 block content
-  h1= title
+  h1 Embedding widget to start identification process
+  div#useid-widget-container(data-tc-token-url=tcTokenURL)
+  script(async src=widgetSrc)
+  small
+    a(href=refreshAddress) Click here to jump to success page
