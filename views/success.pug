@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1 Identity process sucessfully completed
+  h4 Received identity data:
+  div
+    for attribute in data
+      li
+        strong #{attribute.key}:&ensp;
+        span= attribute.value

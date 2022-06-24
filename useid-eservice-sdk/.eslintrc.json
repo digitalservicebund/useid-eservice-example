@@ -25,5 +25,6 @@
     ],
     "keyword-spacing": ["error", { "before": true }],
     "space-before-blocks": ["error"]
-  }
+  },
+  "ignorePatterns": ["dist/**/*.js"]
 }
