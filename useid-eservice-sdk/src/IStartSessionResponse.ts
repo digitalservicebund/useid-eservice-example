@@ -1,4 +1,3 @@
 export interface IStartSessionResponse {
-  sessionId: string;
-  tcTokenURL: string;
+  tcTokenUrl: string;
 }

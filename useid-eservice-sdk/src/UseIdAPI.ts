@@ -1,39 +1,35 @@
-import { DataGroup } from "./DataGroup";
 import { IStartSessionResponse } from "./IStartSessionResponse";
-import { IdentityData, IIdentityDataValues } from "./IdentityData";
+import { Identity } from "./Identity";
+import axios from "axios";
 
 export class UseIdAPI {
   public static domain = "https://useid.dev.ds4g.net";
   public static widgetSrc = `${UseIdAPI.domain}/widget.js`;
 
-  private static apiUrl = `${UseIdAPI.domain}/api/v1`;
-  private readonly apiKey: string;
+  private static apiBaseUrl = `${UseIdAPI.domain}/api/v1/identification/sessions`;
 
   constructor(apiKey: string) {
-    this.apiKey = apiKey;
+    axios.interceptors.request.use(config => {
+      config.headers = config.headers ?? {};
+      config.headers['Authorization'] = `Bearer ${apiKey}`;
+      return config;
+    });
   }
 
-  // For now, the functions are mocking the behaviour
-  private mockDataGroups: DataGroup[] = [];
-  private sessionId?: string;
-
-  async startSession(refreshAddress: string, dataGroups: DataGroup[]): Promise<IStartSessionResponse> {
-    this.mockDataGroups = dataGroups;
-    this.sessionId = "96747088-55fa-411d-9993-092a0606ef89";
+  async startSession(): Promise<IStartSessionResponse> {
+    const response = await axios.post(UseIdAPI.apiBaseUrl);
     return {
-      tcTokenURL: UseIdAPI.apiUrl + `/provider/result/getTcToken.html;jsessionid=B6CDEDF68B4DAD7555187A1070770A8F`,
-      sessionId: this.sessionId
+      tcTokenUrl: response.data.tcTokenUrl,
     };
   }
 
-  async getIdentityData(sessionId: string): Promise<IdentityData> {
-    if (sessionId !== this.sessionId) {
-      throw new Error("Identification Session Not Found");
-    }
-    const values: IIdentityDataValues = {};
-    this.mockDataGroups.forEach((value) => {
-      values[value] = `Placeholder for ${Object.keys(DataGroup)[Object.values(DataGroup).indexOf(value)]}`;
-    });
-    return new IdentityData(values);
+  async getIdentity(eIdSessionId: string): Promise<Identity> {
+    const response = await axios.get(`${UseIdAPI.apiBaseUrl}/${eIdSessionId}`);
+    return new Identity(response.data);
   }
+}
+
+export interface IUseIdAPI {
+  startSession(): Promise<IStartSessionResponse>;
+  getIdentity(eIdSessionId: string): Promise<Identity>;
 }
