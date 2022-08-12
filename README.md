@@ -17,6 +17,11 @@ Run the application on port 3000:
 npm start
 ```
 
+Or run for development with automatic re-compilation enabled:
+```
+npm run dev
+```
+
 ## Build the UseID SDK
 
 Build the SDK distribution files:
