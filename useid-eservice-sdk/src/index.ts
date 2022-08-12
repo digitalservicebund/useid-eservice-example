@@ -1,2 +1,2 @@
 export { DataGroup } from "./DataGroup";
-export { UseIdAPI } from "./UseIdAPI";
+export { UseIdAPI, IUseIdAPI } from "./UseIdAPI";
