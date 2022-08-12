@@ -8,6 +8,7 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:jest/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -17,7 +18,7 @@ module.exports = {
     ecmaVersion: 10,
     sourceType: "module",
   },
-  plugins: ["@typescript-eslint"],
+  plugins: ["@typescript-eslint", "jest"],
   rules: { "no-eval": "error" },
   ignorePatterns: ["dist"]
 };
