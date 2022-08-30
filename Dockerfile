@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN npm run build-sdk
+
 EXPOSE 8080
 
-CMD [ "npm", "run", "build-sdk-and-start" ]
+CMD [ "npm", "start" ]
