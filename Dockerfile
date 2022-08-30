@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 8443
 
-CMD [ "npm", "build-sdk-and-start" ]
+CMD [ "npm", "run", "build-sdk-and-start" ]
