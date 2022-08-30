@@ -4,6 +4,11 @@ app.set('views', require('path').join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 const { UseIdAPI, DataGroup } = require('useid-eservice-sdk');
+
+app.get('/health', async (req, res) => {
+  res.status(200).send("ok")
+});
+
 const useIdAPI = new UseIdAPI(process.env.USEID_API_KEY);
 
 app.get('/', async (req, res) => {
