@@ -12,7 +12,7 @@ npm i
 
 ## Run
 
-Run the application on port 8443:
+Run the application on port 8080:
 ```
 npm start
 ```
