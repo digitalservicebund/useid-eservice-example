@@ -10,6 +10,13 @@ Install all required dependencies:
 npm i
 ```
 
+## Build
+
+Build the SDK:
+```
+npm run build-sdk
+```
+
 ## Run
 
 Run the application on port 8080:
@@ -21,6 +28,12 @@ Or run for development with automatic re-compilation enabled:
 ```
 npm run dev
 ```
+
+## Check App health
+```
+http://localhost:8080/health 
+```
+should return Ok
 
 ## Build the UseID SDK
 
