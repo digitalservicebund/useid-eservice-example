@@ -9,14 +9,14 @@ app.get('/health', async (req, res) => {
   res.status(200).send("ok")
 });
 
-const useIdAPI = new UseIdAPI(process.env.USEID_API_KEY);
+const useIdAPI = new UseIdAPI(process.env.USEID_API_KEY, process.env.USEID_DOMAIN);
 
 app.get('/', async (req, res) => {
   const useIdResponse = await useIdAPI.startSession();
 
-  res.header('Content-Security-Policy', `frame-src ${UseIdAPI.domain}; script-src ${UseIdAPI.domain}`);
+  res.header('Content-Security-Policy', `frame-src ${useIdAPI.domain}; script-src ${useIdAPI.domain}`);
 
-  return res.render('index', { widgetSrc: UseIdAPI.widgetSrc, tcTokenUrl: useIdResponse.tcTokenUrl });
+  return res.render('index', { widgetSrc: useIdAPI.widgetSrc, tcTokenUrl: useIdResponse.tcTokenUrl });
 });
 
 app.get('/success', async (req, res) => {
