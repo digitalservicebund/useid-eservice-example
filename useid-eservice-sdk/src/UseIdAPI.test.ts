@@ -4,7 +4,7 @@ import { Identity } from "./Identity";
 
 let useIdAPI: UseIdAPI;
 beforeEach(() => {
-  useIdAPI = new UseIdAPI("test-api-key");
+  useIdAPI = new UseIdAPI("test-api-key", "test-domain");
 });
 
 afterEach(() => {
@@ -21,7 +21,7 @@ describe('startSession()', () => {
   it('should start session and return tcTokenUrl', async () => {
     const response = await useIdAPI.startSession();
     expect(response).toEqual({ tcTokenUrl });
-    expect(axiosPost).toHaveBeenCalledWith(`${UseIdAPI.domain}/api/v1/identification/sessions`);
+    expect(axiosPost).toHaveBeenCalledWith(`${useIdAPI.domain}/api/v1/identification/sessions`);
   });
 });
 
@@ -36,6 +36,6 @@ describe('getIdentity()', () => {
     const eIdSessionId = "mocked eIdSessionId";
     const response = await useIdAPI.getIdentity(eIdSessionId);
     expect(response).toEqual(new Identity(identityValues));
-    expect(axiosGet).toHaveBeenCalledWith(`${UseIdAPI.domain}/api/v1/identification/sessions/${eIdSessionId}`);
+    expect(axiosGet).toHaveBeenCalledWith(`${useIdAPI.domain}/api/v1/identification/sessions/${eIdSessionId}`);
   });
 });
