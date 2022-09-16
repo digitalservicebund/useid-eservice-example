@@ -10,6 +10,10 @@ Install all required dependencies:
 npm i
 ```
 
+## Config
+
+Copy `.env.example` to `.env` and adapt the configuration according to your setup. 
+
 ## Build
 
 Build the SDK:
@@ -19,12 +23,12 @@ npm run build-sdk
 
 ## Run
 
-Run the application on port 8080:
+Run the application:
 ```
 npm start
 ```
 
-Or run for development with automatic re-compilation enabled:
+Or run for development with automatic re-compilation (including the SDK) enabled:
 ```
 npm run dev
 ```
@@ -34,10 +38,3 @@ npm run dev
 http://localhost:8080/health 
 ```
 should return Ok
-
-## Build the UseID SDK
-
-Build the SDK distribution files:
-```
-npm run build-sdk
-```

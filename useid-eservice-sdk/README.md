@@ -12,7 +12,7 @@ import { UseIdAPI, DataGroup } from 'useid-eservice-sdk';
 
 Create instance with API key received from UseID service:
 ```javascript
-const useIdAPI = new UseIdAPI(process.env.USEID_API_KEY);
+const useIdAPI = new UseIdAPI(process.env.USEID_API_KEY, process.env.USEID_DOMAIN);
 ```
 
 ### Step 1: Embed widget
