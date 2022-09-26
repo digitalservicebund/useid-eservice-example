@@ -24,6 +24,10 @@ app.get('/success', async (req, res) => {
   if (eIdSessionId === undefined) {
     return res.render('error', { errorMessage: 'No session found' });
   }
+  const resultMajor = req.query["ResultMajor"];
+  if (resultMajor === "error") {
+    return res.render("error", { errorMessage: "Identification failed. Please try again." });
+  }
   try {
     const identity = await useIdAPI.getIdentity(eIdSessionId);
     let address = identity.get(DataGroup.PlaceOfResidence)["structuredPlace"];
