@@ -26,9 +26,14 @@ app.get('/success', async (req, res) => {
   }
   try {
     const identity = await useIdAPI.getIdentity(eIdSessionId);
+    let address = identity.get(DataGroup.PlaceOfResidence)["structuredPlace"];
     const data = [
-      { key: 'Document Type', value: identity.get(DataGroup.DocumentType) },
-      { key: 'Issuing Entity', value: identity.get(DataGroup.IssuingEntity) },
+      { key: 'Given Names', value: identity.get(DataGroup.GivenNames) },
+      { key: 'Family Names', value: identity.get(DataGroup.FamilyNames) },
+      { key: 'Street', value: address["street"] },
+      { key: 'City', value: address["city"] },
+      { key: 'Country', value: address["country"] },
+      { key: 'Zip Code', value: address["zipCode"] },
     ];
     return res.render('success', { data });
   } catch (e) {
