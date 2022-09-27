@@ -32,12 +32,12 @@ app.get('/success', async (req, res) => {
     const identity = await useIdAPI.getIdentity(eIdSessionId);
     let address = identity.get(DataGroup.PlaceOfResidence)["structuredPlace"];
     const data = [
-      { key: 'Given Names', value: identity.get(DataGroup.GivenNames) },
-      { key: 'Family Names', value: identity.get(DataGroup.FamilyNames) },
-      { key: 'Street', value: address["street"] },
-      { key: 'City', value: address["city"] },
-      { key: 'Country', value: address["country"] },
-      { key: 'Zip Code', value: address["zipCode"] },
+      { key: 'Vorname', value: identity.get(DataGroup.GivenNames) },
+      { key: 'Nachname', value: identity.get(DataGroup.FamilyNames) },
+      { key: 'Straße', value: address["street"] },
+      { key: 'PLZ', value: address["zipCode"] },
+      { key: 'Stadt', value: address["city"] },
+      { key: 'Land', value: address["country"] },
     ];
     return res.render('success', { data });
   } catch (e) {
