@@ -9,6 +9,10 @@
     "dev": "nodemon --ignore \"./useid-eservice-sdk/dist/\" -e js,ts --exec \"npm run build-sdk-and-start\"",
     "lint": "eslint ."
   },
+  "engines": {
+    "npm": ">=8.0.0 <9.0.0",
+    "node": ">=16.0.0 <17.0.0"
+  },
   "dependencies": {
     "dotenv": "^16.0.1",
     "express": "~4.16.1",
