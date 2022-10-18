@@ -4,14 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "build-sdk": "cd useid-eservice-sdk && npm run build",
-    "build-sdk-and-start": "npm run build-sdk && npm run start",
-    "dev": "nodemon --ignore \"./useid-eservice-sdk/dist/\" -e js,ts --exec \"npm run build-sdk-and-start\"",
+    "dev": "nodemon",
     "lint": "eslint ."
-  },
-  "engines": {
-    "npm": ">=8.0.0 <9.0.0",
-    "node": ">=16.0.0 <17.0.0"
   },
   "dependencies": {
     "dotenv": "^16.0.1",
