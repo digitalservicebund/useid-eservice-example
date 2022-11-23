@@ -1,7 +1,9 @@
 require('dotenv').config();
-const app = require('express')();
+const express = require('express')
+const app = express();
 app.set('views', require('path').join(__dirname, 'views'));
 app.set('view engine', 'pug');
+app.use(express.static('public'));
 
 const { UseIdAPI, DataGroup } = require('useid-eservice-sdk');
 
