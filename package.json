@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "dotenv": "^16.0.1",
-    "express": "~4.16.1",
+    "express": "~4.17.3",
     "pug": "^3.0.2",
     "useid-eservice-sdk": "1.8.1",
     "uuid": "^8.3.2"
