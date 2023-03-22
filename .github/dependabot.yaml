@@ -6,12 +6,28 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 8
-
+    labels:
+      - "dependabot"
+    # Too much noise with patch releases...
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "daily"
+    labels:
+      - "dependabot"
     ignore:
       - dependency-name: "node"
         update-types: ["version-update:semver-major"]
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependabot"
+    # Too much noise with patch releases...
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
