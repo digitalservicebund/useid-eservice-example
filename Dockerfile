@@ -1,15 +1,19 @@
-FROM node:16.20.0
+# Bullseyes uses Debian 11 with longer end-of-life date. Slim variant means smaller software component
+FROM node:16.20.0-bullseye-slim as build
+
+RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
+
+ENV NODE_ENV production
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY --chown=node:node . /usr/src/app
 
-RUN npm install
-
-COPY . .
+RUN npm ci --only=production
 
 EXPOSE 8080
 
 USER node
 
-CMD [ "npm", "start" ]
+# https://github.com/nodejs/docker-node/blob/main/docs/BestPractices.md#cmd
+CMD ["dumb-init", "node", "./bin/www" ]
