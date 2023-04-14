@@ -7,7 +7,7 @@ ENV NODE_ENV production
 
 WORKDIR /usr/src/app
 
-COPY --chown=node:node . /usr/src/app
+COPY --chown=node:node . .
 
 RUN npm ci --omit=dev
 
