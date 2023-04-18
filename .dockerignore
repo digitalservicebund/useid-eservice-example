@@ -1,5 +1,8 @@
-.env
-.env.example
-.git
-.github
-node_modules
+*
+!bin
+!package.json
+!package-lock.json
+!app.js
+!public
+!views
+!LICENSE.txt
