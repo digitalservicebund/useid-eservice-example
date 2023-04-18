@@ -3,7 +3,7 @@ FROM node:16.20.0 as build
 
 WORKDIR /usr/src/app
 
-COPY --chown=node:node package*.json ./
+COPY --chown=node:node . ./
 
 RUN npm ci --omit=dev
 
@@ -21,8 +21,7 @@ USER node
 
 WORKDIR /usr/src/app
 
-COPY --chown=node:node --from=build /usr/src/app/node_modules /usr/src/app/node_modules
-COPY --chown=node:node . .
+COPY --chown=node:node --from=build /usr/src/app/ /usr/src/app/
 
 EXPOSE 8080
 
