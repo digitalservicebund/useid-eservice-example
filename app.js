@@ -61,7 +61,7 @@ app.get('/qrcode', async (req, res) => {
 
 async function createTransactionInfo(useIdResponse) {
   let useIdSessionId = decodeURIComponent(useIdResponse.tcTokenUrl).match(
-      /sessions\/([a-f\d\-]*)\/tc-token/i
+      /tc-tokens\/([a-f\d\-]*)/i
   )[1];
   let data = {
     "providerName": "Spaßkasse",
