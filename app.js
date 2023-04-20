@@ -63,9 +63,6 @@ async function createTransactionInfo(useIdResponse) {
   let useIdSessionId = decodeURIComponent(useIdResponse.tcTokenUrl).match(
       /sessions\/([a-f\d\-]*)\/tc-token/i
   )[1];
-
-  console.log("Create transaction info for: " + useIdSessionId);
-
   let data = {
     "providerName": "Spaßkasse",
     "providerURL": "https://www.sparkasse.de/",
@@ -82,8 +79,7 @@ async function createTransactionInfo(useIdResponse) {
   };
 
   let url = `${useIdAPI.domain}/api/v1/identification/sessions/${useIdSessionId}/transaction-info`;
-  const response = await axios.post(url, data);
-  console.log("Transaction info created successfully: " + JSON.stringify(response.data));
+  await axios.post(url, data);
 }
 
 
