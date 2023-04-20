@@ -78,7 +78,7 @@ async function createTransactionInfo(useIdResponse) {
     ]
   };
 
-  let url = `${useIdAPI.domain}/api/v1/identification/sessions/${useIdSessionId}/transaction-info`;
+  let url = `${useIdAPI.domain}/api/v1/identifications/${useIdSessionId}/transaction-infos`;
   await axios.post(url, data);
 }
 
