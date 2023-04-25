@@ -13,58 +13,58 @@ env:
   CONTAINER_IMAGE_VERSION: ${{ github.sha }}
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build an image from Dockerfile
-        run: docker build -t ${{ env.CONTAINER_IMAGE_NAME }}:${{ env.CONTAINER_IMAGE_VERSION }} .
-
-      - name: Login to container registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push image
-        run: |
-          docker tag ${{ env.CONTAINER_IMAGE_NAME }}:${{ env.CONTAINER_IMAGE_VERSION }} ${{ env.CONTAINER_REGISTRY }}/${{ env.CONTAINER_IMAGE_NAME }}
-          docker tag ${{ env.CONTAINER_IMAGE_NAME }}:${{ env.CONTAINER_IMAGE_VERSION }} ${{ env.CONTAINER_REGISTRY }}/${{ env.CONTAINER_IMAGE_NAME }}:${{ env.CONTAINER_IMAGE_VERSION }}
-          docker push --all-tags ${{ env.CONTAINER_REGISTRY }}/${{ env.CONTAINER_IMAGE_NAME }}
-
-  deploy-staging:
-    runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' }}
-    concurrency: deploy-staging
-    environment: staging
-    needs: [ build ]
-    permissions:
-      id-token: write # Enable OIDC for gitsign
-    steps:
-      - uses: chainguard-dev/actions/setup-gitsign@ac42db4c9c2e2bd9f66aadf3290c5995891d91a3
-      - name: Deploy new image
-        uses: digitalservicebund/github-actions/argocd-deploy@9b15fba0ce0e874d9af5be33ebeea7d476f808d0
-        with:
-          environment: staging
-          version: ${{ env.CONTAINER_IMAGE_VERSION }}
-          deploying_repo: useid-eservice-example
-          infra_repo: useid-provider-infra
-          deploy_key: ${{ secrets.DEPLOY_KEY }}
-          app: useid-provider-staging
-          argocd_pipeline_password: ${{ secrets.ARGOCD_PIPELINE_PASSWORD }}
-          argocd_server: ${{ secrets.ARGOCD_SERVER }}
-          argocd_sync_timeout: 300
-      - name: Track deploy
-        uses: digitalservicebund/github-actions/track-deployment@808a08421edc16be156787f56af63b846ea6f557
-        with:
-          project: UseId eService Example
-          environment: staging
-          metrics_deployment_webhook_url: ${{ secrets.METRICS_DEPLOYMENT_WEBHOOK_URL }}
-          metrics_webhook_token: ${{ secrets.METRICS_WEBHOOK_TOKEN }}
+#  build:
+#    runs-on: ubuntu-latest
+#    permissions:
+#      contents: read
+#      packages: write
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Build an image from Dockerfile
+#        run: docker build -t ${{ env.CONTAINER_IMAGE_NAME }}:${{ env.CONTAINER_IMAGE_VERSION }} .
+#
+#      - name: Login to container registry
+#        uses: docker/login-action@v2
+#        with:
+#          registry: ghcr.io
+#          username: ${{ github.actor }}
+#          password: ${{ secrets.GITHUB_TOKEN }}
+#
+#      - name: Push image
+#        run: |
+#          docker tag ${{ env.CONTAINER_IMAGE_NAME }}:${{ env.CONTAINER_IMAGE_VERSION }} ${{ env.CONTAINER_REGISTRY }}/${{ env.CONTAINER_IMAGE_NAME }}
+#          docker tag ${{ env.CONTAINER_IMAGE_NAME }}:${{ env.CONTAINER_IMAGE_VERSION }} ${{ env.CONTAINER_REGISTRY }}/${{ env.CONTAINER_IMAGE_NAME }}:${{ env.CONTAINER_IMAGE_VERSION }}
+#          docker push --all-tags ${{ env.CONTAINER_REGISTRY }}/${{ env.CONTAINER_IMAGE_NAME }}
+#
+#  deploy-staging:
+#    runs-on: ubuntu-latest
+#    if: ${{ github.ref == 'refs/heads/main' }}
+#    concurrency: deploy-staging
+#    environment: staging
+#    needs: [ build ]
+#    permissions:
+#      id-token: write # Enable OIDC for gitsign
+#    steps:
+#      - uses: chainguard-dev/actions/setup-gitsign@ac42db4c9c2e2bd9f66aadf3290c5995891d91a3
+#      - name: Deploy new image
+#        uses: digitalservicebund/github-actions/argocd-deploy@9b15fba0ce0e874d9af5be33ebeea7d476f808d0
+#        with:
+#          environment: staging
+#          version: ${{ env.CONTAINER_IMAGE_VERSION }}
+#          deploying_repo: useid-eservice-example
+#          infra_repo: useid-provider-infra
+#          deploy_key: ${{ secrets.DEPLOY_KEY }}
+#          app: useid-provider-staging
+#          argocd_pipeline_password: ${{ secrets.ARGOCD_PIPELINE_PASSWORD }}
+#          argocd_server: ${{ secrets.ARGOCD_SERVER }}
+#          argocd_sync_timeout: 300
+#      - name: Track deploy
+#        uses: digitalservicebund/github-actions/track-deployment@808a08421edc16be156787f56af63b846ea6f557
+#        with:
+#          project: UseId eService Example
+#          environment: staging
+#          metrics_deployment_webhook_url: ${{ secrets.METRICS_DEPLOYMENT_WEBHOOK_URL }}
+#          metrics_webhook_token: ${{ secrets.METRICS_WEBHOOK_TOKEN }}
 
   deploy-staging-verify:
     runs-on: ubuntu-latest
@@ -77,6 +77,7 @@ jobs:
         run: |
           status_code=$(curl -o /dev/null -s -w "%{http_code}\n" -X GET ${{ secrets.STAGING_URL }})
           if [[ "$status_code" -ne 201 ]] ; then
+            echo "health check failed"
             exit 1;
           fi
       - name: Send status to Slack
