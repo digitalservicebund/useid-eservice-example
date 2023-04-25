@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build an image from Dockerfile
-        run: docker build -t ${{ env.CONTAINER_IMAGE_NAME }}:${{ CONTAINER_IMAGE_VERSION }} .
+        run: docker build -t ${{ env.CONTAINER_IMAGE_NAME }}:${{ env.CONTAINER_IMAGE_VERSION }} .
 
       - name: Login to container registry
         uses: docker/login-action@v2
@@ -32,8 +32,8 @@ jobs:
 
       - name: Push image
         run: |
-          docker tag ${{ env.CONTAINER_IMAGE_NAME }}:${{ CONTAINER_IMAGE_VERSION }} ${{ env.CONTAINER_REGISTRY }}/${{ env.CONTAINER_IMAGE_NAME }}
-          docker tag ${{ env.CONTAINER_IMAGE_NAME }}:${{ CONTAINER_IMAGE_VERSION }} ${{ env.CONTAINER_REGISTRY }}/${{ env.CONTAINER_IMAGE_NAME }}:${{ CONTAINER_IMAGE_VERSION }}
+          docker tag ${{ env.CONTAINER_IMAGE_NAME }}:${{ env.CONTAINER_IMAGE_VERSION }} ${{ env.CONTAINER_REGISTRY }}/${{ env.CONTAINER_IMAGE_NAME }}
+          docker tag ${{ env.CONTAINER_IMAGE_NAME }}:${{ env.CONTAINER_IMAGE_VERSION }} ${{ env.CONTAINER_REGISTRY }}/${{ env.CONTAINER_IMAGE_NAME }}:${{ env.CONTAINER_IMAGE_VERSION }}
           docker push --all-tags ${{ env.CONTAINER_REGISTRY }}/${{ env.CONTAINER_IMAGE_NAME }}
 
   deploy-staging:
@@ -50,7 +50,7 @@ jobs:
         uses: digitalservicebund/github-actions/argocd-deploy@9b15fba0ce0e874d9af5be33ebeea7d476f808d0
         with:
           environment: staging
-          version: ${{ CONTAINER_IMAGE_VERSION }}
+          version: ${{ env.CONTAINER_IMAGE_VERSION }}
           deploying_repo: useid-eservice-example
           infra_repo: useid-provider-infra
           deploy_key: ${{ secrets.DEPLOY_KEY }}
