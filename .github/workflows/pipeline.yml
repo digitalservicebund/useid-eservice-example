@@ -59,7 +59,7 @@ jobs:
           argocd_server: ${{ secrets.ARGOCD_SERVER }}
           argocd_sync_timeout: 300
       - name: Track deploy
-        uses: digitalservicebund/github-actions/track-deployment@808a08421edc16be156787f56af63b846ea6f557
+        uses: digitalservicebund/github-actions/track-deployment@34a48d29a9c4cc2fd6710b8eb37e13618a08fa88
         with:
           project: UseId eService Example
           environment: staging
@@ -94,3 +94,33 @@ jobs:
           commit: true
           url: ${{ secrets.SLACK_WEBHOOK_URL }}
           token: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' }}
+    concurrency: deploy-production
+    environment: production
+    needs: [ build, deploy-staging-verify ]
+    permissions:
+      id-token: write # Enable OIDC for gitsign
+    steps:
+      - uses: chainguard-dev/actions/setup-gitsign@ac42db4c9c2e2bd9f66aadf3290c5995891d91a3
+      - name: Deploy new image
+        uses: digitalservicebund/github-actions/argocd-deploy@9b15fba0ce0e874d9af5be33ebeea7d476f808d0
+        with:
+          environment: production
+          version: ${{ env.CONTAINER_IMAGE_VERSION }}
+          deploying_repo: useid-backend-service
+          infra_repo: useid-infra
+          deploy_key: ${{ secrets.DEPLOY_KEY }}
+          app: useid-production
+          argocd_pipeline_password: ${{ secrets.ARGOCD_PIPELINE_PASSWORD }}
+          argocd_server: ${{ secrets.ARGOCD_SERVER }}
+          argocd_sync_timeout: 300
+      - name: Track deploy
+        uses: digitalservicebund/github-actions/track-deployment@34a48d29a9c4cc2fd6710b8eb37e13618a08fa88
+        with:
+          project: UseId eService Example
+          environment: production
+          metrics_deployment_webhook_url: ${{ secrets.METRICS_DEPLOYMENT_WEBHOOK_URL }}
+          metrics_webhook_token: ${{ secrets.METRICS_WEBHOOK_TOKEN }}
