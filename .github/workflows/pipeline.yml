@@ -73,7 +73,7 @@ jobs:
 #    needs: [ deploy-staging ]
     steps:
       - name: Check health
-        shell: sh
+        shell: bash
         run: |
           status_code=$(curl -o /dev/null -s -w "%{http_code}\n" -X GET ${{ secrets.STAGING_URL }})
           if [[ "$status_code" -ne 201 ]] ; then
