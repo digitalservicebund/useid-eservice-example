@@ -110,10 +110,10 @@ jobs:
         with:
           environment: production
           version: ${{ env.CONTAINER_IMAGE_VERSION }}
-          deploying_repo: useid-backend-service
-          infra_repo: useid-infra
+          deploying_repo: useid-eservice-example
+          infra_repo: useid-provider-infra
           deploy_key: ${{ secrets.DEPLOY_KEY }}
-          app: useid-production
+          app: useid-provider-production
           argocd_pipeline_password: ${{ secrets.ARGOCD_PIPELINE_PASSWORD }}
           argocd_server: ${{ secrets.ARGOCD_SERVER }}
           argocd_sync_timeout: 300
