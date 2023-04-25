@@ -76,7 +76,7 @@ jobs:
         shell: sh
         run: |
           status_code=$(curl -o /dev/null -s -w "%{http_code}\n" -X GET ${{ secrets.STAGING_URL }})
-          if [[ "$status_code" -ne 200 ]] ; then
+          if [[ "$status_code" -ne 201 ]] ; then
             exit 1;
           fi
       - name: Send status to Slack
