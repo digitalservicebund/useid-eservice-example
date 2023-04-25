@@ -69,8 +69,8 @@ jobs:
   deploy-staging-verify:
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/main' }}
-    concurrency: deploy-staging
-    needs: [ deploy-staging ]
+#    concurrency: deploy-staging
+#    needs: [ deploy-staging ]
     steps:
       - name: Check health
         shell: sh
