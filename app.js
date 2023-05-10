@@ -39,18 +39,30 @@ app.get('/success', async (req, res) => {
     const identity = await useIdAPI.getIdentity(eIdSessionId);
     const address = identity.get(DataGroup.PlaceOfResidence).structuredPlace;
     const data = [
-      { key: 'Vorname', value: identity.get(DataGroup.GivenNames) },
-      { key: 'Nachname', value: identity.get(DataGroup.FamilyNames) },
-      { key: 'Straße', value: address.street },
-      { key: 'PLZ', value: address.zipCode },
-      { key: 'Stadt', value: address.city },
-      { key: 'Land', value: address.country },
+      { key: 'Name', value: identity.get(DataGroup.GivenNames) + " " + identity.get(DataGroup.FamilyNames) },
+      { key: 'Straße', value: formatString(address.street) },
+      { key: 'PLZ und Stadt', value: formatString(address.zipCode + " " + address.city) },
+      { key: 'Land', value: resolveCountry(address) },
     ];
     return res.render('success', { data });
   } catch (e) {
     return res.render('error', { errorMessage: e.message });
   }
 });
+
+function resolveCountry(address) {
+  return address.country === "D" ? "Deutschland" : address.country;
+}
+
+function formatString(input) {
+  let output = `${input.slice(0, 1).toUpperCase()}${input.slice(1)}`;
+
+  output = output.replaceAll(/\S*/g, word =>
+      `${word.slice(0, 1)}${word.slice(1).toLowerCase()}`
+  );
+
+  return output
+}
 
 app.get('/qrcode', async (req, res) => {
   const useIdResponse = await useIdAPI.startSession();
@@ -81,6 +93,5 @@ async function createTransactionInfo(useIdResponse) {
   let url = `${useIdAPI.domain}/api/v1/identifications/${useIdSessionId}/transaction-infos`;
   await axios.post(url, data);
 }
-
 
 module.exports = app;

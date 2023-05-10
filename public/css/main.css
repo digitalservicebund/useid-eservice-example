@@ -1,0 +1,68 @@
+body {
+    font-family: "BundesSansWeb", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding: 4vw;
+    margin: 0;
+    overflow-x: hidden;
+    word-break: break-word;
+}
+
+#useid-widget-container iframe {
+    border: none;
+}
+#useid-widget-container {
+    height: 800px;
+}
+#welcome-header {
+    text-align: center;
+}
+
+.head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headline {
+    margin-bottom: 40px;
+}
+
+.data {
+    border: 1px solid #CCDBE4;
+    background: #F2F6F8;
+    border-radius: 10px;
+    padding: 24px;
+    font-weight: 300;
+}
+.data-attributes {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.check {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs, 1));
+    width: 60px;
+    height: 60px;
+    border-radius: 100px;
+    background: #006538;
+}
+
+.check::after {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    left: 18px;
+    top: 10px;
+    width: 12px;
+    height: 20px;
+    border-color: white;
+    border-width: 0 3px 3px 0;
+    border-style: solid;
+    transform-origin: bottom left;
+    transform: rotate(45deg);
+}

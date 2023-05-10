@@ -1,10 +1,11 @@
 extends layout
 
 block content
-  h1 Ausweisprozess erfolgreich abgeschlossen!
-  h4 Hier sind Deine Daten:
-  div
-    for attribute in data
-      li
-        strong #{attribute.key}:&ensp;
-        span= attribute.value
+  div(class='head')
+    i(class='check')
+    h1(class='headline') Ausweis erfolgreich ausgelesen
+  div(class='data')
+    ul(class='data-attributes')
+      for attribute in data
+        li(class='data-attribute')
+          span= attribute.value
