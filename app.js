@@ -23,7 +23,11 @@ const useIdAPI = new UseIdAPI(process.env.USEID_API_KEY, process.env.USEID_DOMAI
 app.get('/', async (req, res) => {
   const useIdResponse = await useIdAPI.startSession();
   res.header('Content-Security-Policy', `frame-src ${useIdAPI.domain} mailto:; script-src ${useIdAPI.domain}`);
-  return res.render('index', { widgetSrc: useIdAPI.widgetSrc, tcTokenUrl: useIdResponse.tcTokenUrl });
+  return res.render('index', {
+    widgetSrc: useIdAPI.widgetSrc,
+    tcTokenUrl: useIdResponse.tcTokenUrl,
+    view: req.query.view,
+  });
 });
 
 app.get('/success', async (req, res) => {
