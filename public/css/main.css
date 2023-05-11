@@ -39,7 +39,7 @@ body {
 }
 .data-attributes {
     list-style: none;
-    padding-left: 20px;
+    padding-left: 0;
 }
 
 .check {
