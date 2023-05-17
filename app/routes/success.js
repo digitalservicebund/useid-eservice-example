@@ -2,13 +2,15 @@ const { useIdAPI } = require('../shared')
 const { DataGroup } = require("useid-eservice-sdk");
 
 const success = async (req, res) => {
+  let tryAgainMessage = 'Bitte versuchen Sie es erneut.';
+
   const eIdSessionId = req.query.sessionId;
   if (eIdSessionId === undefined) {
-    return res.render('error', { errorMessage: 'No session found' });
+    return res.render('error', { errorMessage: 'Die aufgerufene Adresse ist unvollständig. ' + tryAgainMessage });
   }
   const resultMajor = req.query.ResultMajor;
   if (resultMajor === 'error') {
-    return res.render('error', { errorMessage: 'Identification failed. Please try again.' });
+    return res.render('error', { errorMessage: 'Die Identifizierung ist fehlgeschlagen. ' + tryAgainMessage });
   }
   try {
     const identity = await useIdAPI.getIdentity(eIdSessionId);
@@ -21,7 +23,8 @@ const success = async (req, res) => {
     ];
     return res.render('success', { data });
   } catch (e) {
-    return res.render('error', { errorMessage: e.message });
+    console.error("Failed to get identity: " + e.message);
+    return res.render('error', { errorMessage: 'Ein unbekanntes Problem ist aufgetreten. ' + tryAgainMessage });
   }
 };
 
