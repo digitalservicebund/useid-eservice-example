@@ -1,11 +1,12 @@
 const { banner, useIdAPI } = require("../shared");
 const axios = require("axios");
 
-axios.interceptors.request.use((config) => {
-  config.headers = config.headers ?? {};
-  config.headers["Authorization"] = `Bearer ${process.env.USEID_API_KEY}`;
-  return config;
-});
+const api = axios.create({
+  baseURL: `${useIdAPI.domain}`,
+  headers: {
+    'Authorization': `Bearer ${process.env.USEID_API_KEY}`
+  }
+})
 
 const qrcode = async (req, res) => {
   const useIdResponse = await useIdAPI.startSession();
@@ -40,8 +41,7 @@ async function createTransactionInfo(useIdResponse) {
     ],
   };
 
-  let url = `${useIdAPI.domain}/api/v1/identifications/${useIdSessionId}/transaction-infos`;
-  await axios.post(url, data);
+  await api.post(`/api/v1/identifications/${useIdSessionId}/transaction-infos`, data);
 }
 
 module.exports = qrcode;
