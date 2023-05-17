@@ -2,7 +2,7 @@
 !bin
 !package.json
 !package-lock.json
-!app.js
+!app
 !public
 !views
 !LICENSE.txt
