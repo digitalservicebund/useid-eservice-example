@@ -60,31 +60,9 @@ body {
     text-align: center;
 }
 
-.check {
-    box-sizing: border-box;
-    position: relative;
-    display: block;
-    transform: scale(var(--ggs, 1));
-    width: 60px;
-    height: 60px;
-    border-radius: 100px;
-    background: #006538;
-}
-
-.check::after {
-    content: "";
-    display: block;
-    box-sizing: border-box;
-    position: absolute;
-    left: 18px;
-    top: 10px;
-    width: 12px;
-    height: 20px;
-    border-color: white;
-    border-width: 0 3px 3px 0;
-    border-style: solid;
-    transform-origin: bottom left;
-    transform: rotate(45deg);
+.success-icon {
+    width: 70px;
+    height: auto;
 }
 
 .data {
