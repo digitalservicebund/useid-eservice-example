@@ -23,7 +23,11 @@ const useIdAPI = new UseIdAPI(process.env.USEID_API_KEY, process.env.USEID_DOMAI
 app.get('/', async (req, res) => {
   const useIdResponse = await useIdAPI.startSession();
   res.header('Content-Security-Policy', `frame-src ${useIdAPI.domain} mailto:; script-src ${useIdAPI.domain}`);
-  return res.render('index', { widgetSrc: useIdAPI.widgetSrc, tcTokenUrl: useIdResponse.tcTokenUrl });
+  return res.render('index', {
+    widgetSrc: useIdAPI.widgetSrc,
+    tcTokenUrl: useIdResponse.tcTokenUrl,
+    ...resolveBannerInfo(process.env.USEID_ENV)
+  });
 });
 
 app.get('/success', async (req, res) => {
@@ -68,7 +72,11 @@ app.get('/qrcode', async (req, res) => {
   const useIdResponse = await useIdAPI.startSession();
   await createTransactionInfo(useIdResponse);
   res.header('Content-Security-Policy', `frame-src ${useIdAPI.domain} mailto:; script-src ${useIdAPI.domain}`);
-  return res.render('index', { widgetSrc: `${useIdAPI.domain}/qrcode-widget.js`, tcTokenUrl: useIdResponse.tcTokenUrl });
+  return res.render('index', {
+    widgetSrc: `${useIdAPI.domain}/qrcode-widget.js`,
+    tcTokenUrl: useIdResponse.tcTokenUrl,
+    ...resolveBannerInfo("webauthn")
+  });
 });
 
 async function createTransactionInfo(useIdResponse) {
@@ -92,6 +100,36 @@ async function createTransactionInfo(useIdResponse) {
 
   let url = `${useIdAPI.domain}/api/v1/identifications/${useIdSessionId}/transaction-infos`;
   await axios.post(url, data);
+}
+
+function resolveBannerInfo(env) {
+  let bannerHeader = "Widget Demo ";
+  let bannerText = "Kompatibel mit ";
+  switch (env) {
+    case 'local':
+      bannerHeader += "Local"
+      bannerText += "BundesIdent und BundesIdent Preview und Test-Ausweisdokumenten."
+      break;
+    case 'staging':
+      bannerHeader += "Staging"
+      bannerText += "BundesIdent und BundesIdent Preview und Test-Ausweisdokumenten."
+      break;
+    case 'production':
+      bannerHeader += ""
+      bannerText += "BundesIdent und echten Ausweisdokumenten."
+      break;
+    case 'webauthn':
+      bannerHeader += "WebAuthn"
+      bannerText += "iOS App BundesIdent Prototype, Test‑Ausweisdokumenten in Safari + Chrome."
+      break;
+    default:
+      bannerHeader += ""
+      bannerText += "BundesIdent und echten Ausweisdokumenten."
+  }
+  return {
+    bannerHeader: bannerHeader,
+    bannerText: bannerText
+  }
 }
 
 module.exports = app;

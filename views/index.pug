@@ -2,8 +2,8 @@ extends layout
 
 block head
   div(class="banner")
-    h1(class="banner-header") Widget Demo
-    p(class="banner-text") Kompatibel mit BundesIdent und echten Ausweisdokumenten.
+    h1(class="banner-header")= bannerHeader
+    p(class="banner-text")= bannerText
 
 block content
   div#useid-widget-container(data-tc-token-url=tcTokenUrl)
