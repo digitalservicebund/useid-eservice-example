@@ -1,8 +1,9 @@
 extends layout
 
 block content
-  h1 Es ist ein Fehler aufgetreten.
-  div=errorMessage
-  br
-  br
-  a(href="/") Zurück zum Start
+  div(class="error-wrapper")
+    img(src="images/icon-error.svg", loading="lazy", class="error-icon", alt="Kreuz auf rotem Grund")
+    div
+      h1(class="error-title") Es ist ein Fehler aufgetreten.
+      p= errorMessage
+      a(href="/") Zurück zum Start

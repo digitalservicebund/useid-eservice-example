@@ -1,6 +1,10 @@
 extends layout
 
+block head
+  div(class="banner")
+    h1(class="banner-header")= bannerHeader
+    p(class="banner-text")= bannerText
+
 block content
-  h1#welcome-header Hallo, Du bist wahrscheinlich hier um Dich auszuweisen? Viel Spaß!
   div#useid-widget-container(data-tc-token-url=tcTokenUrl)
   script(async src=widgetSrc)

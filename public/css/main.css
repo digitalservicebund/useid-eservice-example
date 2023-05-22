@@ -2,32 +2,67 @@ body {
     font-family: "BundesSansWeb", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    padding: 8vh 4vw;
+    padding: 0;
     margin: 0;
     overflow-x: hidden;
     word-break: break-word;
-    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
+.content {
+    padding: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#useid-widget-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
 #useid-widget-container iframe {
     border: none;
-}
-#useid-widget-container {
-    height: 100%;
-}
-#welcome-header {
-    text-align: center;
+    flex-grow: 1;
 }
 
-.head {
+.banner {
+    background: #f6f7f8;
+    color: #666;
+    overflow: auto;
+    margin-bottom: 2rem;
+    grid-column-gap: 4px;
+    grid-row-gap: 4px;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 4vw 14px;
+    display: flex;
+}
+.banner-header {
+    text-align: center;
+    font-size: 1.25rem;
+    margin: 0;
+}
+.banner-text {
+    margin: 0;
+}
+
+.success-header {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.headline {
+.success-header .headline {
     margin-bottom: 40px;
     text-align: center;
+}
+
+.success-icon {
+    width: 70px;
+    height: auto;
 }
 
 .data {
@@ -40,31 +75,4 @@ body {
 .data-attributes {
     list-style: none;
     padding-left: 0;
-}
-
-.check {
-    box-sizing: border-box;
-    position: relative;
-    display: block;
-    transform: scale(var(--ggs, 1));
-    width: 60px;
-    height: 60px;
-    border-radius: 100px;
-    background: #006538;
-}
-
-.check::after {
-    content: "";
-    display: block;
-    box-sizing: border-box;
-    position: absolute;
-    left: 18px;
-    top: 10px;
-    width: 12px;
-    height: 20px;
-    border-color: white;
-    border-width: 0 3px 3px 0;
-    border-style: solid;
-    transform-origin: bottom left;
-    transform: rotate(45deg);
 }
