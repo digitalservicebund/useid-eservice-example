@@ -47,6 +47,7 @@ body {
 }
 .banner-text {
     margin: 0;
+    text-align: center;
 }
 
 .success-header {
