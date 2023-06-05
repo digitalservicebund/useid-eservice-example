@@ -52,3 +52,7 @@ npm run dev
 http://localhost:8081/health 
 ```
 should return Ok
+
+## Note: Prototype Code
+
+This repository includes code used only for a prototype version of the widget. The code is tagged with `// PROTOTYPE` comments.

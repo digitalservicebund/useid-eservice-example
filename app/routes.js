@@ -6,6 +6,6 @@ const health = require("./routes/health");
 module.exports = {
   index,
   success,
-  qrcode,
+  qrcode, // PROTOTYPE LINE
   health,
 };

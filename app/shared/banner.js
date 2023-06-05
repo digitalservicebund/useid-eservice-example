@@ -16,11 +16,13 @@ const resolveBannerInfo = function (env) {
       bannerHeader += "";
       bannerText += "BundesIdent und echten Ausweisdokumenten.";
       break;
+    // PROTOTYPE BLOCK BEGIN
     case "webauthn":
       bannerHeader += "WebAuthn";
       bannerText +=
         "iOS App BundesIdent Prototype, Test‑Ausweisdokumenten in Safari + Chrome.";
       break;
+    // PROTOTYPE BLOCK END
     default:
       bannerHeader += "";
       bannerText += "BundesIdent und echten Ausweisdokumenten.";
