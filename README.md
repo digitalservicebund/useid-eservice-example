@@ -56,3 +56,5 @@ should return Ok
 ## Note: Prototype Code
 
 This repository includes code used only for a prototype version of the widget. The code is tagged with `// PROTOTYPE` comments.
+
+Find more details about the prototype in this [proposal for a device switch](https://github.com/digitalservicebund/useid-architecture/blob/main/research/device-switch/proposal-qr-code-based-device-switch-with-webauthn.md).
