@@ -14,6 +14,6 @@ app.set("view engine", "pug");
 app.get("/", index);
 app.get("/health", health);
 app.get("/success", success);
-app.get("/qrcode", qrcode);
+app.get("/qrcode", qrcode); // PROTOTYPE LINE
 
 module.exports = app;

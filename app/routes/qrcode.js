@@ -1,3 +1,5 @@
+// PROTOTYPE FILE
+
 const { banner, useIdAPI } = require("../shared");
 const axios = require("axios");
 
