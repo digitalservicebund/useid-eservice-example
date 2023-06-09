@@ -1,6 +1,6 @@
 const index = require("./routes/index");
 const success = require("./routes/success");
-const qrcode = require("./routes/qrcode");
+const qrcode = require("./routes/qrcode"); // PROTOTYPE LINE
 const health = require("./routes/health");
 
 module.exports = {
