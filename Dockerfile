@@ -1,5 +1,5 @@
 # Build image
-FROM node:16.20.0 as build
+FROM node:16.20.1 as build
 
 WORKDIR /usr/src/app
 
@@ -10,7 +10,7 @@ RUN npm ci --omit=dev
 # Production Image
 ## Bullseyes uses Debian 11 with longer end-of-life date.
 ## Slim variant means smaller software component
-FROM node:16.20.0-bullseye-slim
+FROM node:16.20.1-bullseye-slim
 
 # Add dumb-init for proper signal handling https://cheatsheetseries.owasp.org/cheatsheets/NodeJS_Docker_Cheat_Sheet.html
 RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
